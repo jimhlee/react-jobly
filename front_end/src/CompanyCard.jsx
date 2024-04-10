@@ -10,8 +10,15 @@ import React from "react";
  * App -> RoutesList -> CompanyList -> CompanyCard
  *
  */
-function CompanyCard() {
-    return (<div>Company</div>)
+function CompanyCard({ company }) {
+    return (
+        <div>
+            <h5>{company.name}</h5>
+            <p>{company.description}</p>
+            {/* FIXME: logo not loading */}
+            <img src={company.logo_url} alt={`Logo for ${company.name}`} />
+        </div>
+        );
 }
 
 export default CompanyCard;
