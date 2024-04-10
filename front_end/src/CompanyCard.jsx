@@ -11,12 +11,12 @@ import React from "react";
  *
  */
 function CompanyCard({ company }) {
+    //console.log(company);
     return (
         <div>
             <h5>{company.name}</h5>
             <p>{company.description}</p>
-            {/* FIXME: logo not loading */}
-            <img src={company.logo_url} alt={`Logo for ${company.name}`} />
+            {company.logoUrl && <img src={company.logoUrl} alt={`Logo for ${company.name}`} />}
         </div>
         );
 }

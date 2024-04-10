@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import JoblyApi from "./helpers/api";
 import CompanyCard from "./CompanyCard";
+import SearchBox from "./searchBox";
 
 /**
  * CompaniesList: Displays a list of all the companies
@@ -21,23 +22,35 @@ function CompaniesList() {
     });
     console.log('companies list state: companies', companies)
 
-    //
     useEffect(function fetchCompaniesWhenMounted() {
         console.log('useffect companies list')
         async function fetchCompanies() {
-            const companies = await JoblyApi.getAllCompanies();
+            const companiesResult = await JoblyApi.getAllCompanies();
             setCompanies({
-                data: companies,
+                data: companiesResult,
                 isLoading: false
             });
         }
         fetchCompanies();
     }, []);
 
+    // Format the search term (trim), feed the search term into the getAllCompanies, set the
+    // new list of companies to the filtered companies list
+    async function search(term){
+        const formattedTerm = term.trim();
+        const filteredCompanies = await JoblyApi.request(`companies`, formattedTerm);
+        console.log("filtered companies", filteredCompanies)
+            setCompanies({
+                data: filteredCompanies.companies,
+                isLoading: false
+            })
+    }
+
     if (companies.isLoading) return <i>Loading...</i>;
 
     return (
         <div className="companies-list">
+            <SearchBox search={search}/>
             <ul>
                 {companies.data.map((c) => (
                     <li key={c.handle}>

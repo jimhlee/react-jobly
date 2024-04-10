@@ -37,7 +37,7 @@ function RoutesList() {
       />
 
       <Route
-        path="/companies/:name"
+        path="/companies/:handle"
         element={<CompanyDetail />}
       />
 
