@@ -1,25 +1,24 @@
 import React from "react";
 import JobCard from "./JobCard";
 
+
 /**
  * JobCardList: Displays a list of all the job cards
  *
  * state: none
  *
- * props: jobs
+ * props: jobs [{ id, title, salary, equity, companyHandle, companyName }, ...]
  *
- * App -> RoutesList -> JobsList -> JobCardList -> JobCard
+ * App -> RoutesList -> {JobsList, CompanyDetail} -> JobCardList -> JobCard
  *
  */
-function JobCardList({ jobs, search }) {
-
+function JobCardList({ jobs }) {
+    console.log("JobCardList rendered");
     return (
         <div>
-            <SearchBox search={search} />
-
             <ul>
-                {jobs.data.map((j, i) => (
-                    <li key={i}>
+                {jobs.map((j) => (
+                    <li key={j.id}>
                         <JobCard job={j} />
                     </li>
                 ))}

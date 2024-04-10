@@ -5,34 +5,33 @@ import React, { useState, useEffect } from "react";
  *
  * state: search term
  *
- * props: none
+ * props: search fn
  *
  * App -> RoutesList -> {CompaniesList, JobsList} -> SearchBox
  *
  */
-function SearchBox({search}) {
+function SearchBox({ search }) {
   const [term, setTerm] = useState("");
-  console.log('searchboxstate: term', term)
+  console.log('searchboxstate: term', term);
 
-    /** updates term based on user input */
-    function handleChange(evt) {
-      setTerm(evt.target.value);
-    }
-
-    /** Calls parent function to update parent's state with search term */
-    function handleSubmit(evt) {
-      evt.preventDefault();
-      search(term);
-      setTerm("");
-    }
-
-    return (
-      <form onSubmit={handleSubmit}>
-        <input value={term} onChange={handleChange} />
-        <button>Search!</button>
-      </form>
-    );
+  /** updates term based on user input */
+  function handleChange(evt) {
+    setTerm(evt.target.value);
   }
-  // end
 
-  export default SearchBox;
+  /** Calls parent function to update parent's state with search term */
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    search(term);
+    setTerm("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input value={term} onChange={handleChange} />
+      <button>Search!</button>
+    </form>
+  );
+}
+
+export default SearchBox;

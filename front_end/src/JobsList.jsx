@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import JoblyApi from "./helpers/api";
 import JobCardList from "./JobCardList";
+import SearchBox from "./SearchBox";
 /**
  * JobsList: Displays a list of all the jobs
  *
@@ -8,15 +9,19 @@ import JobCardList from "./JobCardList";
  *
  * props: none
  *
- * App -> RoutesList -> JobsList -> JobCardList -> JobCard
+ * App -> RoutesList -> {JobsList, CompanyDetail} -> JobCardList -> JobCard
  *
  */
+//TODO: add title like Search Results for 'and'
 function JobsList() {
     const [jobs, setJobs] = useState({
         data: null,
         isLoading: true
     });
     console.log('jobs list state: jobs', jobs);
+
+    const [searched, setSearched] = useState("");
+    console.log("searched", searched);
 
     useEffect(function fetchJobsWhenMounted() {
         console.log('useffect jobs list');
@@ -30,14 +35,41 @@ function JobsList() {
         fetchJobs();
     }, []);
 
-    // FIXME: add search function here just like companieslist
+    /** Filters jobs by search term */
+    async function search(term) {
+        const formattedTerm = term.trim().replace('.', '');
+        if (formattedTerm.length < 1) {
+            const JobsResult = await JoblyApi.getAllJobs();
+            setJobs({
+                data: JobsResult,
+                isLoading: false
+            });
+            setSearched("");
+            return;
+        }
+
+        const filteredJobs =
+            await JoblyApi.request(`jobs`, { title: formattedTerm });
+        setJobs({
+            data: filteredJobs.jobs,
+            isLoading: false
+        });
+
+        setSearched(formattedTerm);
+    }
+
 
     if (jobs.isLoading) return <i>Loading...</i>;
 
 
     return (
         <div>
-            <JobCardList jobs={jobs} search={'FIXME:'} />
+            <br />
+            <SearchBox search={search} />
+            <br />
+            {searched ? <h2>{`Search Results for '${searched}'`}</h2> : <h2>All Jobs</h2>}
+            <br />
+            <JobCardList jobs={jobs.data} />
         </div>
     );
 }

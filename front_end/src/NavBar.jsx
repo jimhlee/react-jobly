@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import "./NavBar.css"
 
 /**
@@ -12,24 +12,23 @@ import "./NavBar.css"
  *
  */
 
-//TODO: Links to navLinks
 
 function NavBar() {
 
     return (
         <nav className="NavBar">
 
-        <Link to={"/"}>
+        <NavLink to={"/"}>
             Jobly
-        </Link>
+        </NavLink>
 
-        <Link to={"/companies"}>
+        <NavLink to={"/companies"}>
             Companies
-        </Link>
+        </NavLink>
 
-        <Link to={"/jobs"}>
+        <NavLink to={"/jobs"}>
             Jobs
-        </Link>
+        </NavLink>
 
         </nav>
     );

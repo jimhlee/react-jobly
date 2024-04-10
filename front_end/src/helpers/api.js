@@ -52,6 +52,7 @@ class JoblyApi {
   }
 
   /** Get a list of all companies */
+  // Make smarter to handle search term, receive paramater use ternary
 
   static async getAllCompanies() {
     let res = await this.request(`companies`);
