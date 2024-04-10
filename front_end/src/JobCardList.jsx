@@ -1,7 +1,8 @@
 import React from "react";
+import JobCard from "./JobCard";
 
 /**
- * JobCardList: Displays a list of all the jobs
+ * JobCardList: Displays a list of all the job cards
  *
  * state: none
  *
@@ -10,8 +11,21 @@ import React from "react";
  * App -> RoutesList -> JobsList -> JobCardList -> JobCard
  *
  */
-function JobCardList() {
-    return (<div>Jobs</div>)
+function JobCardList({ jobs, search }) {
+
+    return (
+        <div>
+            <SearchBox search={search} />
+
+            <ul>
+                {jobs.data.map((j, i) => (
+                    <li key={i}>
+                        <JobCard job={j} />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default JobCardList;

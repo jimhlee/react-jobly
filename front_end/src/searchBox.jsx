@@ -7,17 +7,19 @@ import React, { useState, useEffect } from "react";
  *
  * props: none
  *
- * App -> RoutesList -> CompaniesList -> CompanyCard
+ * App -> RoutesList -> {CompaniesList, JobsList} -> SearchBox
  *
  */
 function SearchBox({search}) {
+  const [term, setTerm] = useState("");
+  console.log('searchboxstate: term', term)
 
-    const [term, setTerm] = useState("");
-
+    /** updates term based on user input */
     function handleChange(evt) {
       setTerm(evt.target.value);
     }
 
+    /** Calls parent function to update parent's state with search term */
     function handleSubmit(evt) {
       evt.preventDefault();
       search(term);
