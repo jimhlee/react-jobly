@@ -3,14 +3,15 @@ import { BrowserRouter } from "react-router-dom";
 import './App.css';
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
-
+import JoblyApi from "./helpers/api";
+import { jwtDecode } from "jwt-decode";
 
 /**
  * App: Handles user auth and current user state
  *
  * state: currUser object like =>
  * {
- *  userInfo:
+ *  data:
       {username: "testusername",
       password: "password",
       firstName: "Bob",
@@ -33,6 +34,9 @@ function App() {
   const [currUser, setCurrUser] = useState({});
   const [currToken, setCurrToken] = useState("");
 
+  console.log("Our currUser:", currUser);
+  console.log("Our currToken:", currToken);
+
   /** Function to login existing user, takes in username and password, make a call to the api and validates the formdata that
    * this is a real user. Sets current user and the current token */
   function login() {
@@ -49,13 +53,7 @@ function App() {
   async function signup(formData) {
     console.log('signup function in app')
     try {
-      const userResult = await JoblyApi.signUpUser(formData);
-      setCurrUser({
-        data: userResult,
-        isLoading: false,
-        errors: null
-      });
-      const token = userResult.token
+      const token = await JoblyApi.signUpUser(formData);
       setCurrToken(token)
       console.log('token', token)
     } catch (err) {
@@ -80,6 +78,31 @@ function App() {
   }
 
   /** UseEffect block to keep track of token changes and updates currUser accordingly */
+
+  useEffect(function fetchUserFromToken() {
+    async function fetchUser() {
+
+        try {
+          const {username} = jwtDecode(currToken)
+
+            const userResult = await JoblyApi.getUser(username);
+            setCurrUser({
+                data: userResult,
+                isLoading: false,
+                errors: null
+            });
+
+        } catch (err) {
+            setCurrUser({
+                data: null,
+                isLoading: false,
+                errors: err
+            });
+        }
+    }
+
+    fetchUser();
+}, [currToken]);
 
 
   const authFunctions = {

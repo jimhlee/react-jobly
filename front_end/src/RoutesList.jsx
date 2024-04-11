@@ -11,7 +11,7 @@ import CompaniesList from "./CompaniesList";
 import CompanyDetail from "./CompanyDetail";
 import JobsList from "./JobsList";
 import Login from "./Login"
-import Signup from "./Signup"
+import SignUp from "./SignUp"
 import Profile from "./Profile"
 
 /**
@@ -59,7 +59,7 @@ function RoutesList({functions}) {
 
       <Route
         path="/signup"
-        element={<Signup signUpFunction={signup}/>}
+        element={<SignUp signUpFunction={signup}/>}
       />
 
       <Route
