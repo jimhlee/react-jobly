@@ -1,16 +1,18 @@
 import React from "react";
 
 import {
-    Routes,
-    Route,
-    Navigate,
-    Link
-  } from 'react-router-dom';
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom';
 
-  import HomePage from "./HomePage"
-  import CompaniesList from "./CompaniesList"
-  import CompanyDetail from "./CompanyDetail"
-  import JobsList from "./JobsList"
+import HomePage from "./HomePage";
+import CompaniesList from "./CompaniesList";
+import CompanyDetail from "./CompanyDetail";
+import JobsList from "./JobsList";
+import Login from "./Login"
+import Signup from "./Signup"
+import Profile from "./Profile"
 
 /**
  * RoutesList: Holds all of our endpoints
@@ -45,6 +47,22 @@ function RoutesList() {
         path="/jobs"
         element={<JobsList />}
       />
+
+      <Route
+        path="/login"
+        element={<Login />}
+      />
+
+      <Route
+        path="/signup"
+        element={<Signup />}
+      />
+
+      <Route
+        path="/profile"
+        element={<Profile />}
+      />
+
 
       <Route
         path="/*"
