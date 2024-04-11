@@ -8,9 +8,10 @@
  *
  */
 
+
 const LOGIN_DEFAULT_DATA = {"username": "", "password": ""}
 
-function Login() {
+function Login({loginFunction}) {
 
     const [formData, setformData] = useState(LOGIN_DEFAULT_DATA);
 

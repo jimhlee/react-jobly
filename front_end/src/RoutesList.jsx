@@ -25,7 +25,11 @@ import Profile from "./Profile"
  *
  */
 
-function RoutesList() {
+function RoutesList({functions}) {
+  // unpacking the functions
+  const {signup, edit, login} = functions
+  // passing them down as propsm where needed
+
   return (
     <Routes>
       <Route
@@ -50,17 +54,17 @@ function RoutesList() {
 
       <Route
         path="/login"
-        element={<Login />}
+        element={<Login loginFunction={login}/>}
       />
 
       <Route
         path="/signup"
-        element={<Signup />}
+        element={<Signup signUpFunction={signup}/>}
       />
 
       <Route
         path="/profile"
-        element={<Profile />}
+        element={<Profile edit={edit}/>}
       />
 
 
