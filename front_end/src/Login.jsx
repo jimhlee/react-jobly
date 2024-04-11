@@ -16,7 +16,7 @@ function Login() {
 
   /** updates term based on user input */
   function handleChange(evt) {
-    setTerm(evt.target.value);
+    setformData(evt.target.value);
   }
 
   /** Calls parent function to update parent's state with search term */
