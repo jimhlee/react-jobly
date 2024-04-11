@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || "http://localhost:3001"
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || "http://localhost:3001";
 /** API Class.
  *
  * Static class tying together methods used to get/send to the API.
@@ -21,7 +21,7 @@ class JoblyApi {
       authorization: `Bearer ${JoblyApi.token}`,
       'content-type': 'application/json',
     };
-
+    console.log('data', data);
     url.search = (method === "GET")
       ? new URLSearchParams(data).toString()
       : "";
@@ -54,15 +54,22 @@ class JoblyApi {
   /** Get a list of all companies */
   // Make smarter to handle search term, receive paramater use ternary
 
-  static async getAllCompanies() {
-    let res = await this.request(`companies`);
+  static async getAllCompanies(searchParam = '') {
+    let res;
+    searchParam
+      ? res = await this.request(`companies`, { 'nameLike': `${searchParam}` })
+      : res = await this.request(`companies`);
+
     return res.companies;
   }
 
   /** Get a list of all jobs */
 
-  static async getAllJobs() {
-    let res = await this.request(`jobs`);
+  static async getAllJobs(searchParam = '') {
+    let res;
+    searchParam
+      ? res = await this.request(`jobs`, { title: searchParam })
+      : res = await this.request(`jobs`);
     return res.jobs;
   }
 }
