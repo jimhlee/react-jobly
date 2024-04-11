@@ -65,7 +65,6 @@ class JoblyApi {
   }
 
   /** Get a list of all jobs */
-
   static async getAllJobs(searchParam = '') {
     let res;
     searchParam
@@ -74,35 +73,30 @@ class JoblyApi {
     return res.jobs;
   }
 
-
+  /** Signup user returns token */
   static async signUpUser(userData) {
-    // make request to /users
     const res = await this.request(`auth/register`, userData, 'POST');
     console.log('res in signup user', res);
     this.token = res.token;
-    // return a token
     return res.token;
   }
 
-  // edit user
+  /** Edit user, returns { username, firstName, lastName, email } */
   static async editUser(userData) {
-    // make request to /users
     const res = await this.request(`users/${userData.username}`, userData, 'PATCH');
     console.log('res in edit user', res);
     const { username, firstName, lastName, email } = res.user;
     return { username, firstName, lastName, email };
   }
 
-  // login user
-
+  /** Login user, returns token */
   static async login(userData) {
     const res = await this.request('auth/token', userData, 'POST');
     this.token = res.token;
     return res.token;
   }
 
-  // get user
-
+  /** Fetch specific user, returns { username, firstName, lastName, email } */
   static async getUser(username) {
     let res = await this.request(`users/${username}`);
     return res.user;

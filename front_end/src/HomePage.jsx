@@ -1,4 +1,7 @@
 import React from "react";
+import userContext from "./helpers/userContext";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 
 /**
  * HomePage: Displays the hero image/our homepage
@@ -11,7 +14,22 @@ import React from "react";
  *
  */
 function HomePage() {
-    return (<div>HomePage</div>)
+    const currUser = useContext(userContext);
+    return (
+        <div>
+            <h2>Jobly</h2>
+            <br />
+            <h4> All the jobs you could ever want </h4>
+            {currUser.data
+                ? `Welcome back ${currUser.data.username}`
+                : <div>
+                    'Welcome to jobly'
+                    <br />
+                    <NavLink to={'/signup'}> Signup </NavLink>
+                    <br />
+                    <NavLink to={'/login'}> Login </NavLink>
+                </div>}
+        </div>);
 }
 
 export default HomePage;

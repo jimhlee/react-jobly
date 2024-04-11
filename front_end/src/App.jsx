@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import './App.css';
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
 import JoblyApi from "./helpers/api";
-import { jwtDecode } from "jwt-decode";
+import Alert from "./Alert";
+import userContext from "./helpers/userContext";
 
 /**
  * App: Handles user auth and current user state
@@ -39,10 +41,6 @@ function App() {
 
   /** Function to login existing user, takes in username and password, make a call to the api and validates the formdata that
    * this is a real user. Sets current user and the current token */
-  function login() {
-    setCurrUser();
-    setCurrToken();
-  }
   // TODO: // signUpUser editUser login
 
   /** Function to register new user, make a call to the api
@@ -51,11 +49,26 @@ function App() {
 
   // this gets passed down to signup.jsx
   async function signup(formData) {
-    console.log('signup function in app')
+    console.log('signup function in app');
     try {
       const token = await JoblyApi.signUpUser(formData);
-      setCurrToken(token)
-      console.log('token', token)
+      setCurrToken(token);
+      console.log('token', token);
+    } catch (err) {
+      setCurrUser({
+        data: null,
+        isLoading: false,
+        errors: err
+      });
+    }
+  }
+
+  async function login(formData) {
+    console.log('login function in app');
+    try {
+      const token = await JoblyApi.login(formData);
+      setCurrToken(token);
+      console.log('token', token);
     } catch (err) {
       setCurrUser({
         data: null,
@@ -67,7 +80,11 @@ function App() {
 
   /** Function to logout current user, resets the currUser and currToken */
   function logout() {
-    setCurrUser({});
+    setCurrUser({
+      data: null,
+      isLoading: false,
+      errors: null
+    });
     setCurrToken("");
   }
 
@@ -82,41 +99,43 @@ function App() {
   useEffect(function fetchUserFromToken() {
     async function fetchUser() {
 
-        try {
-          const {username} = jwtDecode(currToken)
+      try {
+        const { username } = jwtDecode(currToken);
 
-            const userResult = await JoblyApi.getUser(username);
-            setCurrUser({
-                data: userResult,
-                isLoading: false,
-                errors: null
-            });
+        const userResult = await JoblyApi.getUser(username);
+        setCurrUser({
+          data: userResult,
+          isLoading: false,
+          errors: null
+        });
 
-        } catch (err) {
-            setCurrUser({
-                data: null,
-                isLoading: false,
-                errors: err
-            });
-        }
+      } catch (err) {
+        setCurrUser({
+          data: null,
+          isLoading: false,
+          errors: err
+        });
+      }
     }
 
     fetchUser();
-}, [currToken]);
+  }, [currToken]);
 
 
   const authFunctions = {
     signup,
     edit,
     login
-  }
+  };
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <RoutesList functions={authFunctions}/>
-      </BrowserRouter>
+      <userContext.Provider value={currUser}>
+        <BrowserRouter>
+          <NavBar logoutFunction={logout}/>
+          <RoutesList functions={authFunctions} />
+        </BrowserRouter>
+      </ userContext.Provider >
     </div>
   );
 };

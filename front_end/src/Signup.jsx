@@ -26,95 +26,95 @@ function SignUp({ signUpFunction }) {
         }));
     }
 
-    console.log("Form Data:", formData)
+    console.log("Form Data:", formData);
 
-function handleSubmit(evt) {
-    evt.preventDefault();
-    signUpFunction(formData);
-    setFormData(SIGNUP_DEFAULT_DATA);
-}
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        signUpFunction(formData);
+        setFormData(SIGNUP_DEFAULT_DATA);
+    }
 
-return (
-    <form onSubmit={handleSubmit}>
+    return (
+        <form onSubmit={handleSubmit}>
 
-        <div>
-            <label htmlFor="Signup-username">Username</label>
-            <input
-                id="Signup-username"
-                name="username"
-                className="form-control"
-                placeholder="Username"
-                onChange={handleChange}
-                value={formData.username}
-                aria-label="Username"
-            />
-        </div>
+            <div>
+                <label htmlFor="Signup-username">Username</label>
+                <input
+                    id="Signup-username"
+                    name="username"
+                    className="form-control"
+                    placeholder="Username"
+                    onChange={handleChange}
+                    value={formData.username}
+                    aria-label="Username"
+                />
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <label htmlFor="Signup-password">Password</label>
-            <input
-                id="Signup-password"
-                name="password"
-                className="form-control"
-                placeholder="Password"
-                onChange={handleChange}
-                value={formData.password}
-                aria-label="Password"
-            />
-        </div>
+            <div>
+                <label htmlFor="Signup-password">Password</label>
+                <input
+                    id="Signup-password"
+                    name="password"
+                    className="form-control"
+                    placeholder="Password"
+                    onChange={handleChange}
+                    value={formData.password}
+                    aria-label="Password"
+                />
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <label htmlFor="Signup-firstName">First Name</label>
-            <input
-                id="Signup-firstName"
-                name="firstName"
-                className="form-control"
-                placeholder="First Name"
-                onChange={handleChange}
-                value={formData.firstName}
-                aria-label="First Name"
-            />
-        </div>
+            <div>
+                <label htmlFor="Signup-firstName">First Name</label>
+                <input
+                    id="Signup-firstName"
+                    name="firstName"
+                    className="form-control"
+                    placeholder="First Name"
+                    onChange={handleChange}
+                    value={formData.firstName}
+                    aria-label="First Name"
+                />
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <label htmlFor="Signup-lastName">Last Name</label>
-            <input
-                id="Signup-lastName"
-                name="lastName"
-                className="form-control"
-                placeholder="Last Name"
-                onChange={handleChange}
-                value={formData.lastName}
-                aria-label="Last Name"
-            />
-        </div>
+            <div>
+                <label htmlFor="Signup-lastName">Last Name</label>
+                <input
+                    id="Signup-lastName"
+                    name="lastName"
+                    className="form-control"
+                    placeholder="Last Name"
+                    onChange={handleChange}
+                    value={formData.lastName}
+                    aria-label="Last Name"
+                />
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <label htmlFor="Signup-email">Email</label>
-            <input
-                id="Signup-email"
-                name="email"
-                className="form-control"
-                placeholder="Email"
-                onChange={handleChange}
-                value={formData.email}
-                aria-label="Email"
-            />
-        </div>
+            <div>
+                <label htmlFor="Signup-email">Email</label>
+                <input
+                    id="Signup-email"
+                    name="email"
+                    className="form-control"
+                    placeholder="Email"
+                    onChange={handleChange}
+                    value={formData.email}
+                    aria-label="Email"
+                />
+            </div>
 
-        <br />
+            <br />
 
-        <button>Sign Up!</button>
-    </form>
-    )
+            <button>Sign Up!</button>
+        </form>
+    );
 }
 
 
