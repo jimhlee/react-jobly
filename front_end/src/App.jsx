@@ -23,7 +23,7 @@ import userContext from "./helpers/userContext";
  *  errors: null
  * }
  *
- * currToken: unique string
+ * currToken: unique token
  *
  * props: none
  *

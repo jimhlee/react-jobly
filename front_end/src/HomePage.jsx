@@ -20,6 +20,7 @@ function HomePage() {
             <h2>Jobly</h2>
             <br />
             <h4> All the jobs you could ever want </h4>
+            <br />
             {currUser.data
                 ? `Welcome back ${currUser.data.username}`
                 : <div>
