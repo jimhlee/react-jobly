@@ -48,7 +48,7 @@ function NavBar({logoutUser}) {
                         Profile
                     </NavLink>
 
-                    < NavLink onClick={logoutUser} to={'/'} >
+                    < NavLink onClick={logoutUser} >
                         Logout {currUser.data.username}
                     </NavLink></div>
 

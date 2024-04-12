@@ -66,15 +66,15 @@ function App() {
   }
 
   /** Function to logout current user, resets the currUser and currToken */
+
   function logout() {
-    // FIXME: logout not logging out
+    localStorage.clear();
     setCurrToken("");
     setCurrUser({
       data: null,
       isLoading: false,
-      errors: err
+      errors: []
     })
-    localStorage.clear();
   }
 
   /** Function to edit the currUser, make a call to the api and accepts username, fname, lname, email, and token to validate
