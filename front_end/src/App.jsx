@@ -33,14 +33,20 @@ import userContext from "./helpers/userContext";
 function App() {
 
   const [currUser, setCurrUser] = useState({});
-  const [currToken, setCurrToken] = useState("");
+  // TODO: use local storage to set initial state
+  const [currToken, setCurrToken] = useState(localStorage.token);
 
   console.log("Our currUser:", currUser);
   // console.log("Our currToken:", currToken);
+  // console.log('boolean', localStorage.token && !currToken)
+  console.log('token in storage', localStorage.token)
+  console.log('token in state', currToken)
 
-  if (localStorage.token && !currToken){
-    setCurrToken(localStorage.token);
-  }
+  // if (localStorage.token && !currToken){
+  //   console.log("conditional block entered")
+  //   console.log("curr token", currToken)
+  //   setCurrToken(localStorage.token);
+  // }
 
   /** Function to register new user and update token */
 
@@ -61,7 +67,13 @@ function App() {
 
   /** Function to logout current user, resets the currUser and currToken */
   function logout() {
+    // FIXME: logout not logging out
     setCurrToken("");
+    setCurrUser({
+      data: null,
+      isLoading: false,
+      errors: err
+    })
     localStorage.clear();
   }
 
@@ -77,12 +89,13 @@ function App() {
 
   /** UseEffect block to keep track of token changes and updates currUser accordingly */
   useEffect(function fetchUserFromToken() {
-    console.log('token changed. new token is:', currToken)
+    console.log('!!!!!!!! token changed. new token is:', currToken)
     async function fetchUser() {
-
       try {
         const { username } = jwtDecode(currToken);
-
+        console.log('username in useffect', username)
+        JoblyApi.token = currToken
+        console.log('jobly api token', JoblyApi.token)
         const userResult = await JoblyApi.getUser(username);
         setCurrUser({
           data: userResult,
@@ -98,8 +111,9 @@ function App() {
         });
       }
     }
-
-    fetchUser();
+    if (currToken) {
+      fetchUser();
+    }
   }, [currToken]);
 
 
