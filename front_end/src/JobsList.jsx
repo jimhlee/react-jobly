@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import JoblyApi from "./helpers/api";
 import JobCardList from "./JobCardList";
 import SearchBox from "./SearchBox";
+import { Navigate } from "react-router-dom";
+
 /**
  * JobsList: Displays a list of all the jobs
  *
@@ -13,11 +15,16 @@ import SearchBox from "./SearchBox";
  *
  */
 function JobsList() {
+    if (!localStorage.token) {
+        return < Navigate to='/' />
+    }
+
     const [jobs, setJobs] = useState({
         data: null,
         isLoading: true
     });
     const [searched, setSearched] = useState("");
+
 
     console.log('jobs list state: jobs', jobs);
     console.log("searched", searched);

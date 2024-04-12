@@ -31,9 +31,9 @@ import userContext from "./helpers/userContext";
  */
 
 function App() {
-
+  // TODO: keep currUser state in same shape with same keys
   const [currUser, setCurrUser] = useState({});
-  // TODO: use local storage to set initial state
+  // TODO: use getItem() instead, returns null instead of undefined
   const [currToken, setCurrToken] = useState(localStorage.token);
 
   console.log("Our currUser:", currUser);
@@ -68,6 +68,7 @@ function App() {
   /** Function to logout current user, resets the currUser and currToken */
 
   function logout() {
+    // TODO: use removeItem instead
     localStorage.clear();
     setCurrToken("");
     setCurrUser({
@@ -113,7 +114,12 @@ function App() {
     }
     if (currToken) {
       fetchUser();
-    }
+    } else {
+      setCurrUser({
+      data: null,
+      isLoading: false,
+      errors: []
+    })};
   }, [currToken]);
 
 
@@ -122,6 +128,8 @@ function App() {
     edit,
     login
   };
+
+  // TODO: check for isloading here
 
   return (
     <div className="App">

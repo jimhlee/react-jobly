@@ -3,6 +3,7 @@ import JoblyApi from "./helpers/api";
 import { useParams } from "react-router-dom";
 import JobCardList from "./JobCardList";
 import NotFound from "./NotFound";
+import { Navigate } from "react-router-dom";
 
 /**
  * CompanyDetail: Displays all the job cards associated with a company
@@ -15,6 +16,10 @@ import NotFound from "./NotFound";
  *
  */
 function CompanyDetail() {
+    if (!localStorage.token) {
+        return < Navigate to='/' />;
+    }
+
     const { handle } = useParams();
     const [company, setCompany] = useState({
         data: null,
@@ -22,6 +27,7 @@ function CompanyDetail() {
         errors: null
     });
     console.log('company object state: company', company);
+
 
     useEffect(function fetchCompanyWhenMounted() {
         console.log('useffect company object', handle);

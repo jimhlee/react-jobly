@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import JoblyApi from "./helpers/api";
 import CompanyCard from "./CompanyCard";
 import SearchBox from "./SearchBox";
+import { Navigate } from "react-router-dom";
 
 /**
  * CompaniesList: Displays a list of all the companies
@@ -15,12 +16,16 @@ import SearchBox from "./SearchBox";
  */
 
 function CompaniesList() {
+    if (!localStorage.token) {
+        return < Navigate to='/' />
+    }
 
     const [companies, setCompanies] = useState({
         data: null,
         isLoading: true
     });
     const [searched, setSearched] = useState("");
+
 
     console.log('companies list state: companies', companies);
     console.log('searched', searched);

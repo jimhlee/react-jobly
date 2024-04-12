@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import userContext from "./helpers/userContext";
 import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 /**
  * Profile: A profile edit form for users to edit first name, last name, and email
@@ -13,14 +14,11 @@ import { useContext } from "react";
  *
  */
 
-
 function Profile({ edit }) {
 
     const currUser = useContext(userContext);
     console.log("Profile currUser:", currUser);
-
     const { username, firstName, lastName, email } = currUser.data;
-
     const [formData, setFormData] = useState({ username, firstName, lastName, email });
 
 

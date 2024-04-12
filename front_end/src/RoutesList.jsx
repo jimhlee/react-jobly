@@ -27,7 +27,8 @@ import Profile from "./Profile";
 
 function RoutesList({ authorizers }) {
   const { signup, edit, login } = authorizers;
-
+  // TODO: use ternary to check if user in state, if user render all routes
+  // if not, render select routes
   return (
     <Routes>
       <Route
