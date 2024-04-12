@@ -14,8 +14,10 @@
 }
 
 .failure {
-  border: 3px ;
+  border: 10px ;
+  border-radius: 10px;
   border-color: black;
+  padding: 5px;
   margin: 5px;
   background-color: rgba(177, 88, 88, 0.653);
 }

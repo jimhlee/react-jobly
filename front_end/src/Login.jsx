@@ -46,6 +46,7 @@ function Login({ loginUser }) {
         navigate('/login');
         return
     }
+    // TODO: remove login default
     setFormData(LOGIN_DEFAULT_DATA);
     navigate('/');
 }

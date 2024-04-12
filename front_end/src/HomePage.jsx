@@ -22,7 +22,7 @@ function HomePage() {
             <h4> All the jobs you could ever want </h4>
             <br />
             {currUser.data
-                ? `Welcome back ${currUser.data.username}`
+                ? `Welcome ${currUser.data.username}`
                 : <div>
                     <br />
                     <NavLink to={'/signup'}> Signup </NavLink>
