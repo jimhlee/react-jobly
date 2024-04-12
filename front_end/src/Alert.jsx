@@ -1,6 +1,16 @@
 import React from "react";
 
-// Takes an object
+/**
+* Alert: Alerts user of success or failure
+*
+* state: none
+*
+* props: messageData
+*
+* App -> RoutesList -> {..., Login} -> Alert
+*
+*/
+
 function Alert(messageData) {
     // {text: '', success: false/true}
     let successClass = null;

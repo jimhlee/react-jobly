@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 
 /**
- * Login
+ * Login: login form for users
  * state: formData
 *
-* props: none
+* props: loginFunction
 *
-* App -> RoutesList
+* App -> RoutesList -> {..., Login} -> Alert
 *
 */
 
@@ -17,11 +17,12 @@ const LOGIN_DEFAULT_DATA = { "username": "", "password": "" };
 
 function Login({ loginFunction }) {
   const [formData, setFormData] = useState(LOGIN_DEFAULT_DATA);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   console.log('Login component rendered');
 
-  /** updates term based on user input */
+  /** Updating the formData in state depending on user input */
+
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData(fData => ({
@@ -31,7 +32,8 @@ function Login({ loginFunction }) {
   }
   console.log("Form Data in login:", formData);
 
-  /** Calls parent function to update parent's state with search term */
+  /** Calls parent function to update parent's state with form data */
+
   function handleSubmit(evt) {
     evt.preventDefault();
     loginFunction(formData);
@@ -40,9 +42,9 @@ function Login({ loginFunction }) {
   }
 
 
-  // TODO: check if current user has error key
   return (
     <form onSubmit={handleSubmit}>
+
       <div>
         <label htmlFor="Login-username">Username</label>
         <input
@@ -55,6 +57,7 @@ function Login({ loginFunction }) {
           aria-label="Username"
         />
       </div>
+
       <div>
         <label htmlFor="Login-password">Password</label>
         <input
@@ -67,6 +70,7 @@ function Login({ loginFunction }) {
           aria-label="Password"
         />
       </div>
+
       <button>Login</button>
     </form>
   );

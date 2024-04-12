@@ -39,15 +39,12 @@ function App() {
   console.log("Our currUser:", currUser);
   console.log("Our currToken:", currToken);
 
-  /** Function to login existing user, takes in username and password, make a call to the api and validates the formdata that
-   * this is a real user. Sets current user and the current token */
-  // TODO: // signUpUser editUser login
+
 
   /** Function to register new user, make a call to the api
    * and validate that the user can sign up,
    * response should contain the token for this new user and save this token. Sets current user and the current token */
 
-  // this gets passed down to signup.jsx
   async function signup(formData) {
     console.log('signup function in app');
     try {
@@ -62,6 +59,9 @@ function App() {
       });
     }
   }
+
+  /** Function to login existing user, takes in username and password, make a call to the api and validates the formdata that
+   * this is a real user. Sets current user and the current token */
 
   async function login(formData) {
     console.log('login function in app');
@@ -79,6 +79,7 @@ function App() {
   }
 
   /** Function to logout current user, resets the currUser and currToken */
+
   function logout() {
     setCurrUser({
       data: null,
@@ -89,9 +90,14 @@ function App() {
   }
 
   /** Function to edit the currUser, make a call to the api and accepts username, fname, lname, email, and token to validate
-   *  and update the user and reset currUser */
-  function edit() {
-    setCurrUser();
+   *  and update the user and resets currUser */
+  async function edit(formData) {
+    console.log("formData", formData);
+    setCurrUser({
+      data: await JoblyApi.editUser(formData),
+      isLoading: false,
+      errors: null
+    });
   }
 
   /** UseEffect block to keep track of token changes and updates currUser accordingly */
@@ -132,7 +138,7 @@ function App() {
     <div className="App">
       <userContext.Provider value={currUser}>
         <BrowserRouter>
-          <NavBar logoutFunction={logout}/>
+          <NavBar logoutFunction={logout} />
           <RoutesList functions={authFunctions} />
         </BrowserRouter>
       </ userContext.Provider >

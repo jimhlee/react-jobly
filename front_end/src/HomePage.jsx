@@ -23,7 +23,6 @@ function HomePage() {
             {currUser.data
                 ? `Welcome back ${currUser.data.username}`
                 : <div>
-                    'Welcome to jobly'
                     <br />
                     <NavLink to={'/signup'}> Signup </NavLink>
                     <br />

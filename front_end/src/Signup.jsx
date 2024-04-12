@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 /**
  * Signup: A signup form for new users to register
@@ -17,6 +19,9 @@ const SIGNUP_DEFAULT_DATA = { "username": "", "password": "", "firstName": "", "
 function SignUp({ signUpFunction }) {
 
     const [formData, setFormData] = useState(SIGNUP_DEFAULT_DATA);
+    const navigate = useNavigate();
+
+    /** Updating the formData in state depending on user input */
 
     function handleChange(evt) {
         const { name, value } = evt.target;
@@ -28,10 +33,14 @@ function SignUp({ signUpFunction }) {
 
     console.log("Form Data:", formData);
 
+    /** Calls parent function to update parent's state with form data */
+
     function handleSubmit(evt) {
         evt.preventDefault();
         signUpFunction(formData);
         setFormData(SIGNUP_DEFAULT_DATA);
+        navigate('/');
+
     }
 
     return (

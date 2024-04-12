@@ -21,7 +21,7 @@ import Profile from "./Profile"
  *
  * props: none
  *
- * App -> RoutesList -> {JobList, CompanyDetail, CompanyList, HomePage}
+ * App -> RoutesList -> {JobList, CompanyDetail, CompanyList, HomePage, Login, SignUp, Profile}
  *
  */
 

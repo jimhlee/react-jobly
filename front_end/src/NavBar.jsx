@@ -29,25 +29,34 @@ function NavBar({logoutFunction}) {
 
     return (
         <nav className="NavBar">
+
+            <NavLink to={"/"}>
+                Jobly
+            </NavLink>
+
             {currUser.data
-                // TODO: change curr user and token to default
-                ? < NavLink onClick={logoutFunction} to={'/'} > Logout {currUser.data.username}</NavLink>
+                ? <div>
+                    <NavLink to={"/companies"}>
+                        Companies
+                     </NavLink>
+
+                    <NavLink to={"/jobs"}>
+                        Jobs
+                    </NavLink>
+
+                    <NavLink to={"/profile"}>
+                        Profile
+                    </NavLink>
+
+                    < NavLink onClick={logoutFunction} to={'/'} >
+                        Logout {currUser.data.username}
+                    </NavLink></div>
+
                 : <div>
                     < NavLink to={'/login'}> Login </NavLink>
                     < NavLink to={'/signup'}> Signup </NavLink>
                 </div>
             }
-            <NavLink to={"/"}>
-                Jobly
-            </NavLink>
-
-            <NavLink to={"/companies"}>
-                Companies
-            </NavLink>
-
-            <NavLink to={"/jobs"}>
-                Jobs
-            </NavLink>
 
         </nav>
     );
