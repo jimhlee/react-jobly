@@ -4,9 +4,9 @@ import Alert from "./Alert";
 
 /**
  * Login: login form for users
- * state: formData
+ * state: formData, errors
 *
-* props: loginFunction
+* props: loginUser
 *
 * App -> RoutesList -> {..., Login} -> Alert
 *
@@ -15,8 +15,9 @@ import Alert from "./Alert";
 
 const LOGIN_DEFAULT_DATA = { "username": "", "password": "" };
 
-function Login({ loginFunction }) {
+function Login({ loginUser }) {
   const [formData, setFormData] = useState(LOGIN_DEFAULT_DATA);
+  const [errors, setErrors] = useState();
   const navigate = useNavigate();
 
   console.log('Login component rendered');
@@ -34,15 +35,20 @@ function Login({ loginFunction }) {
 
   /** Calls parent function to update parent's state with form data */
 
-  //TODO: async function, change function name, handle errors here
-
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    loginFunction(formData);
+    try {
+        await loginUser(formData);
+    } catch (err) {
+        console.log('error is', err);
+        setFormData(formData);
+        setErrors(err);
+        navigate('/login');
+        return
+    }
     setFormData(LOGIN_DEFAULT_DATA);
     navigate('/');
-  }
-
+}
 
   return (
     <form onSubmit={handleSubmit}>
@@ -72,7 +78,9 @@ function Login({ loginFunction }) {
           aria-label="Password"
         />
       </div>
-
+      {errors?.length > 0
+                ? <Alert messageData={{ text: errors, success: false }}/>
+                : null}
       <button>Login</button>
     </form>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import './Alert.css';
 
 /**
 * Alert: Alerts user of success or failure
@@ -12,15 +13,18 @@ import React from "react";
 */
 
 function Alert(messageData) {
-    // {text: '', success: false/true}
+    console.log('Alert rendered')
     let successClass = null;
+
     messageData.success
         ? successClass = 'success'
         : successClass = 'failure';
 
     return (
         <div className={successClass}>
-            <p> {messageData.text} </p>
+            {messageData.messageData.text.map((error, i) => {
+                return <p key={i}> {error} </p>;
+            })}
         </div>
     );
 }

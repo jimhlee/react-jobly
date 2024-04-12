@@ -5,7 +5,6 @@ import './App.css';
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
 import JoblyApi from "./helpers/api";
-import Alert from "./Alert";
 import userContext from "./helpers/userContext";
 
 /**
@@ -39,60 +38,29 @@ function App() {
   console.log("Our currUser:", currUser);
   console.log("Our currToken:", currToken);
 
-
-
-  /** Function to register new user, make a call to the api
-   * and validate that the user can sign up,
-   * response should contain the token for this new user and save this token. Sets current user and the current token */
+  /** Function to register new user and update token */
 
   async function signup(formData) {
-    console.log('signup function in app');
-    try {
-      const token = await JoblyApi.signUpUser(formData);
-      setCurrToken(token);
-      console.log('token', token);
-    } catch (err) {
-      setCurrUser({
-        data: null,
-        isLoading: false,
-        errors: err
-      });
-    }
+    const token = await JoblyApi.signUpUser(formData);
+    setCurrToken(token);
   }
 
   /** Function to login existing user, takes in username and password, make a call to the api and validates the formdata that
    * this is a real user. Sets current user and the current token */
 
   async function login(formData) {
-    console.log('login function in app');
-    try {
-      const token = await JoblyApi.login(formData);
-      setCurrToken(token);
-      console.log('token', token);
-    } catch (err) {
-      setCurrUser({
-        data: null,
-        isLoading: false,
-        errors: err
-      });
-    }
+    const token = await JoblyApi.login(formData);
+    setCurrToken(token);
   }
 
   /** Function to logout current user, resets the currUser and currToken */
-//TODO: only changing the token, when token changes run an effect
   function logout() {
-    setCurrUser({
-      data: null,
-      isLoading: false,
-      errors: null
-    });
     setCurrToken("");
   }
 
   /** Function to edit the currUser, make a call to the api and accepts username, fname, lname, email, and token to validate
    *  and update the user and resets currUser */
   async function edit(formData) {
-    console.log("formData", formData);
     setCurrUser({
       data: await JoblyApi.editUser(formData),
       isLoading: false,
@@ -101,8 +69,8 @@ function App() {
   }
 
   /** UseEffect block to keep track of token changes and updates currUser accordingly */
-
   useEffect(function fetchUserFromToken() {
+    console.log('token changed. new token is:', currToken)
     async function fetchUser() {
 
       try {
@@ -128,7 +96,7 @@ function App() {
   }, [currToken]);
 
 
-  const authFunctions = {
+  const authorizers = {
     signup,
     edit,
     login
@@ -138,8 +106,8 @@ function App() {
     <div className="App">
       <userContext.Provider value={currUser}>
         <BrowserRouter>
-          <NavBar logoutFunction={logout} />
-          <RoutesList functions={authFunctions} />
+          <NavBar logoutUser={logout} />
+          <RoutesList authorizers={authorizers} />
         </BrowserRouter>
       </ userContext.Provider >
     </div>

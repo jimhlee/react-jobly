@@ -10,25 +10,23 @@ import HomePage from "./HomePage";
 import CompaniesList from "./CompaniesList";
 import CompanyDetail from "./CompanyDetail";
 import JobsList from "./JobsList";
-import Login from "./Login"
-import SignUp from "./SignUp"
-import Profile from "./Profile"
+import Login from "./Login";
+import Signup from "./Signup";
+import Profile from "./Profile";
 
 /**
  * RoutesList: Holds all of our endpoints
  *
  * state: none
  *
- * props: none
+ * props: authorizers {functions for login, signup, etc}
  *
  * App -> RoutesList -> {JobList, CompanyDetail, CompanyList, HomePage, Login, SignUp, Profile}
  *
  */
 
-function RoutesList({functions}) {
-  // unpacking the functions
-  const {signup, edit, login} = functions
-  // passing them down as propsm where needed
+function RoutesList({ authorizers }) {
+  const { signup, edit, login } = authorizers;
 
   return (
     <Routes>
@@ -54,19 +52,18 @@ function RoutesList({functions}) {
 
       <Route
         path="/login"
-        element={<Login loginFunction={login}/>}
+        element={<Login loginUser={login} />}
       />
 
       <Route
         path="/signup"
-        element={<SignUp signUpFunction={signup}/>}
+        element={<Signup signupUser={signup} />}
       />
 
       <Route
         path="/profile"
-        element={<Profile edit={edit}/>}
+        element={<Profile edit={edit} />}
       />
-
 
       <Route
         path="/*"

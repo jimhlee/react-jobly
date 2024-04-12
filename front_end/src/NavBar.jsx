@@ -15,7 +15,7 @@ import "./NavBar.css";
  */
 
 
-function NavBar({logoutFunction}) {
+function NavBar({logoutUser}) {
     const currUser = useContext(userContext);
 
     /*
@@ -48,7 +48,7 @@ function NavBar({logoutFunction}) {
                         Profile
                     </NavLink>
 
-                    < NavLink onClick={logoutFunction} to={'/'} >
+                    < NavLink onClick={logoutUser} to={'/'} >
                         Logout {currUser.data.username}
                     </NavLink></div>
 

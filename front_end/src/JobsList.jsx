@@ -5,7 +5,7 @@ import SearchBox from "./SearchBox";
 /**
  * JobsList: Displays a list of all the jobs
  *
- * state: jobs
+ * state: jobs, searched
  *
  * props: none
  *

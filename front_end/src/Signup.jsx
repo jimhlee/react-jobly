@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
+
+const SIGNUP_DEFAULT_DATA = { "username": "", "password": "", "firstName": "", "lastName": "", "email": "" };
 
 /**
  * Signup: A signup form for new users to register
  *
- * state: formData
+ * state: formData, errors
  *
- * props: signUpFunction
+ * props: signupUser
  *
  * App -> RoutesList -> {..., SignUp} -> Alert
  *
  */
 
-const SIGNUP_DEFAULT_DATA = { "username": "", "password": "", "firstName": "", "lastName": "", "email": "" };
-
-
-function SignUp({ signUpFunction }) {
+function Signup({ signupUser }) {
 
     const [formData, setFormData] = useState(SIGNUP_DEFAULT_DATA);
+    const [errors, setErrors] = useState();
     const navigate = useNavigate();
 
     /** Updating the formData in state depending on user input */
@@ -31,16 +32,20 @@ function SignUp({ signUpFunction }) {
         }));
     }
 
-    console.log("Form Data:", formData);
-
     /** Calls parent function to update parent's state with form data */
 
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        signUpFunction(formData);
+        try {
+            await signupUser(formData);
+        } catch (err) {
+            setFormData(formData);
+            setErrors(err);
+            navigate('/signup');
+            return
+        }
         setFormData(SIGNUP_DEFAULT_DATA);
         navigate('/');
-
     }
 
     return (
@@ -121,10 +126,12 @@ function SignUp({ signUpFunction }) {
 
             <br />
 
+            {errors?.length > 0
+                ? <Alert messageData={{ text: errors, success: 'failure' }}/>
+                : null}
             <button>Sign Up!</button>
         </form>
     );
 }
 
-
-export default SignUp;
+export default Signup;
