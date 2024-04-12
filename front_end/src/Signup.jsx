@@ -44,8 +44,6 @@ function Signup({ signupUser }) {
             navigate('/signup');
             return
         }
-        // TODO: remove below line
-        setFormData(SIGNUP_DEFAULT_DATA);
         // TODO: send in extra argument with navigate to trigger alert on homepage. check that state in homepage and useEffect() to render alert
         navigate('/');
     }

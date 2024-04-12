@@ -36,13 +36,18 @@ function App() {
   const [currToken, setCurrToken] = useState("");
 
   console.log("Our currUser:", currUser);
-  console.log("Our currToken:", currToken);
+  // console.log("Our currToken:", currToken);
+
+  if (localStorage.token && !currToken){
+    setCurrToken(localStorage.token);
+  }
 
   /** Function to register new user and update token */
 
   async function signup(formData) {
     const token = await JoblyApi.signUpUser(formData);
     setCurrToken(token);
+    localStorage.setItem("token", token);
   }
 
   /** Function to login existing user, takes in username and password, make a call to the api and validates the formdata that
@@ -51,11 +56,13 @@ function App() {
   async function login(formData) {
     const token = await JoblyApi.login(formData);
     setCurrToken(token);
+    localStorage.setItem("token", token);
   }
 
   /** Function to logout current user, resets the currUser and currToken */
   function logout() {
     setCurrToken("");
+    localStorage.clear();
   }
 
   /** Function to edit the currUser, make a call to the api and accepts username, fname, lname, email, and token to validate
