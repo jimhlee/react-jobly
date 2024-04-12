@@ -34,6 +34,8 @@ function Login({ loginFunction }) {
 
   /** Calls parent function to update parent's state with form data */
 
+  //TODO: async function, change function name, handle errors here
+
   function handleSubmit(evt) {
     evt.preventDefault();
     loginFunction(formData);

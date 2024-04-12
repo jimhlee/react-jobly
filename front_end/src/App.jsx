@@ -79,7 +79,7 @@ function App() {
   }
 
   /** Function to logout current user, resets the currUser and currToken */
-
+//TODO: only changing the token, when token changes run an effect
   function logout() {
     setCurrUser({
       data: null,
